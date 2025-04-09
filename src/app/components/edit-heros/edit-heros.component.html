@@ -1,0 +1,31 @@
+<h2 mat-dialog-title>Editar heroe</h2>
+<mat-dialog-content>
+  Nombre:
+  <mat-form-field class="example-full-width">
+    <input matInput
+    type="text"
+    placeholder="Buscar"
+    name="name"
+    [(ngModel)]="name"
+    [ngModel]="inputName"
+    (ngModelChange)="inputName = $event.toUpperCase()" />
+  </mat-form-field>
+  Studio:
+  <mat-form-field class="example-full-width">
+    <input matInput
+    type="text"
+    placeholder="Buscar"
+    name="studio"
+    [(ngModel)]="studio"
+    [ngModel]="inputStudio"
+    (ngModelChange)="inputStudio = $event.toUpperCase()" />
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Close</button>
+  <button mat-button mat-dialog-close (click)="updateHero()">Add</button>
+</mat-dialog-actions>
+
+
+
+

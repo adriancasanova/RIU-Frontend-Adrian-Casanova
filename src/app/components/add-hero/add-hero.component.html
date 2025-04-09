@@ -1,0 +1,58 @@
+<h2 mat-dialog-title>Agregar heroe</h2>
+<form [formGroup]="loginForm" fxLayout="column" fxLayoutGap="10px">
+  <mat-dialog-content>
+    Nombre:
+    <mat-form-field class="example-full-width">
+      <input
+        matInput
+        type="text"
+        placeholder="Buscar"
+        formControlName="inputValidatorName"
+        [(ngModel)]="name"
+        [ngModel]="inputName"
+        (ngModelChange)="inputName = $event.toUpperCase()"
+        required
+      />
+      @if (inputValidatorName?.hasError('required')) {
+      <mat-error>El nombre del heroe es obligatorio</mat-error>
+      } @if (inputValidatorName?.hasError('minlength')) {
+      <mat-error>Son necesarios <strong>4 caracteres mínimo</strong></mat-error>
+      } @if (inputValidatorName?.hasError('maxlength')) {
+      <mat-error>Máximo 20 caracteres</mat-error>
+      }
+    </mat-form-field>
+    Studio:
+    <mat-form-field class="example-full-width">
+      <input
+        matInput
+        type="text"
+        placeholder="Buscar"
+        formControlName="inputValidatorStudio"
+        [(ngModel)]="studio"
+        [ngModel]="inputStudio"
+        (ngModelChange)="inputStudio = $event.toUpperCase()"
+        required
+      />
+
+      @if (inputValidatorStudio?.hasError('required')) {
+      <mat-error>El estudio del heroe es obligatorio</mat-error>
+      } @if (inputValidatorStudio?.hasError('minlength')) {
+      <mat-error>Son necesarios <strong>2 caracteres mínimo</strong></mat-error>
+      } @if (inputValidatorStudio?.hasError('maxlength')) {
+      <mat-error>Máximo 20 caracteres</mat-error>
+      }
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close>Close</button>
+    <button
+      class="add"
+      mat-button
+      mat-dialog-close
+      (click)="addHero()"
+      [disabled]="!loginForm.valid"
+    >
+      Add
+    </button>
+  </mat-dialog-actions>
+</form>
