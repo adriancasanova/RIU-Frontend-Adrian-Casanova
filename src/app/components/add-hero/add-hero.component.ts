@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import {
   MatDialogActions,
@@ -18,7 +18,6 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { merge } from 'rxjs';
 import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-add-hero',
@@ -44,7 +43,8 @@ export class AddHeroComponent {
   inputName = '';
   name = '';
   studio = '';
-  heroes: Hero[] = [];
+  heroes = this.heroService.getHeroes();
+
   loginForm = new FormGroup({
     inputValidatorName: new FormControl('', [
       Validators.required,
@@ -68,9 +68,5 @@ export class AddHeroComponent {
   constructor(private heroService: HeroService) {}
   addHero(): void {
     this.heroService.addHero({ name: this.name, studio: this.studio } as Hero);
-    this.loadHeroes();
-  }
-  loadHeroes() {
-    this.heroes = this.heroService.getHeroes();
   }
 }

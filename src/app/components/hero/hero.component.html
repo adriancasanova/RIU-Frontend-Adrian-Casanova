@@ -1,9 +1,7 @@
 <div class="hero">
   <h1 class="hero__header">Heros</h1>
   <hr />
-
   <div class="hero__containerInput">
-    <!--Input para filtrar por id-->
     <mat-form-field>
       <mat-label>Filtrar por id</mat-label>
       <input
@@ -14,8 +12,6 @@
         (input)="getHeroById(this.id)"
       />
     </mat-form-field>
-
-    <!--Input para filtrar por palabra clave-->
     <mat-form-field>
       <mat-label>Filtrar por nombre</mat-label>
       <input
@@ -24,16 +20,14 @@
         placeholder="Batman"
         value="Batman"
         [(ngModel)]="searchName"
+        (ngModelChange)="searchName = $event.toUpperCase()"
         (input)="getHeroByName()"
       />
     </mat-form-field>
   </div>
-  <!-- Boton para agregar heroes-->
   <button class="hero__buttonAdd" mat-raised-button (click)="openDialogAdd()">
     Agregar heroe
   </button>
-
-  <!-- Lista de heroes -->
   <mat-grid-list
     cols="3"
     rowHeight="100px"
@@ -43,8 +37,6 @@
     <mat-grid-tile>Estudio</mat-grid-tile>
     <mat-grid-tile>Acciones</mat-grid-tile>
   </mat-grid-list>
-
-  <!--Lista de heroes por id-->
   @if (heroesById) {
   <mat-grid-list cols="3" rowHeight="100px" class="hero__list">
     <mat-grid-tile>{{ heroesById.name }}</mat-grid-tile>
@@ -58,9 +50,7 @@
       </button>
     </mat-grid-tile>
   </mat-grid-list>
-  }@else if(heroesByName) {
-  <!--Lista de heroes por nombre-->
-  @for (hero of searchResultName; track hero.id) {
+  }@else if(heroesByName) { @for (hero of searchResultName; track hero.id) {
   <mat-grid-list cols="3" rowHeight="100px" class="hero__list">
     <mat-grid-tile>{{ hero.name }}</mat-grid-tile>
     <mat-grid-tile>{{ hero.studio }}</mat-grid-tile>
@@ -70,12 +60,10 @@
     </mat-grid-tile>
   </mat-grid-list>
   } }@else {
-  <!-- Lista de heroes general-->
   <mat-grid-list cols="3" rowHeight="100px" class="hero__list hero__list--ul">
-    @for (hero of heroes | paginate: { itemsPerPage: 5, currentPage: page }; let
-    indice=$index; track heroes; ) {
-
-    <mat-grid-tile >{{ hero.name }}</mat-grid-tile>
+    @for (hero of heroes() | paginate: { itemsPerPage: 5, currentPage: page };
+    let indice=$index; track heroes(); ) {
+    <mat-grid-tile>{{ hero.name }}</mat-grid-tile>
     <mat-grid-tile>{{ hero.studio }}</mat-grid-tile>
     <mat-grid-tile>
       <button mat-raised-button (click)="openDialogEdit(hero)">Editar</button>
@@ -98,8 +86,6 @@
     nextLabel="posterior"
   ></pagination-controls>
 </div>
-
-<!-- Modal de alerta antes de eliminar un heroe-->
 <div
   class="modal fade"
   id="exampleModal"

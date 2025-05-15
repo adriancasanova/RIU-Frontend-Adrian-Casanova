@@ -1,6 +1,6 @@
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { HeroService } from './../../services/hero.service';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Hero } from '../../models/hero';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,7 +10,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddHeroComponent } from '../add-hero/add-hero.component';
-import { MatTableDataSource } from '@angular/material/table';
 import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -33,11 +32,11 @@ import { EditHerosComponent } from '../edit-heros/edit-heros.component';
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.scss',
 })
-export class HeroComponent implements OnInit {
+export class HeroComponent  {
   inputBuscar = '';
   filterPost = '';
   public page: number = 1;
-  heroes: Hero[] = [];
+  heroes = this.heroService.getHeroes();
   selectedHero: Hero | null = null;
   name = '';
   studio = '';
@@ -46,7 +45,6 @@ export class HeroComponent implements OnInit {
   heroesByName: Hero | undefined;
   readonly dialogAdd = inject(MatDialog);
   readonly dialogEdit = inject(MatDialog);
-  totalRecords = 0;
   pageSize = 10;
   pageIndex = 0;
   searchResultName: Hero[] = [];
@@ -54,23 +52,9 @@ export class HeroComponent implements OnInit {
   id!: number;
 
   constructor(private heroService: HeroService) {
-   // this.loadHeroes();
-  }
-  ngOnInit(): void {
-    this.loadHeroes();
   }
 
-  loadHeroes() {
-    this.heroes = this.heroService.getHeroes();
-  }
 
-  updateHero(hero: Hero) {
-    if (this.selectedHero) {
-      this.heroService.updateHero(this.selectedHero.id, hero);
-      this.resetForm();
-      this.loadHeroes();
-    }
-  }
 
   idDelete(heroID: number) {
     this.DeleteId = heroID;
@@ -78,7 +62,6 @@ export class HeroComponent implements OnInit {
 
   deleteHero(id: number) {
     this.heroService.deleteHero(this.DeleteId);
-    this.loadHeroes();
   }
 
   getHeroById(id: number) {

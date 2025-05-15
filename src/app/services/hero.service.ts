@@ -1,13 +1,11 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { map } from 'rxjs';
+import { Injectable, signal } from '@angular/core';
 import { Hero } from '../models/hero';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HeroService {
-  private heroes: Hero[] = [
+  private heroes = signal<Hero[]>([
     {
       id: 1,
       name: 'BATMAN',
@@ -43,44 +41,37 @@ export class HeroService {
       name: 'FLASH',
       studio: 'DC',
     },
-  ];
+  ]);
   private id = 7;
   constructor() {}
 
-  getHeroes(): Hero[] {
-    return this.heroes;
+  getHeroes() {
+    return this.heroes.asReadonly();
   }
 
   getHeroById(id: number): Hero | undefined {
-    const h = this.heroes.filter((hero) => hero.id == id)[0];
-    return h;
+    return this.heroes().filter((hero) => hero.id == id)[0];
   }
 
   getHeroByName(term: string) {
-    if (!term.trim()) {
-      return [];
-    }
-    return this.heroes.filter((hero) =>
+    if (!term.trim()) return [];
+    return this.heroes().filter((hero) =>
       hero.name.toLowerCase().includes(term.toLowerCase())
     );
   }
 
   addHero(hero: Hero): void {
     hero.id = this.id++;
-    this.heroes.unshift(hero);
+    this.heroes.update((heroes) => [hero, ...heroes]);
   }
 
   updateHero(id: number, hero: Hero): void {
-    const index = this.heroes.findIndex((h) => h.id === id);
-    if (index !== -1) {
-      this.heroes[index] = { ...this.heroes[index], ...hero };
-    }
+    this.heroes.update((heroes) =>
+      heroes.map((h) => (h.id === id ? { ...h, ...hero } : h))
+    );
   }
 
   deleteHero(id: number): void {
-    const index = this.heroes.findIndex((h) => h.id === id);
-    if (index !== -1) {
-      this.heroes.splice(index, 1);
-    }
+    this.heroes.update((heroes) => heroes.filter((h) => h.id !== id));
   }
 }

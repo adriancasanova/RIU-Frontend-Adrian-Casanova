@@ -1,27 +1,78 @@
 # RiuFrontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.1.
+Aplicación que permite el mantenimiento de súper héroes desarrollada con **Angular 17.0.1**
 
-## Development server
+### La misma permite:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- Crear un nuevo héroe
+- Editar un héroe
+- Listar los héroes
+- Eliminar héroes
+- Filtrarlos por nombre o id
 
-## Code scaffolding
+### Tecnologías utilizadas
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- [Angular 17.0.1](https://angular.dev/)
+- [Node.js 20.10.0](https://nodejs.org/es/download/)
+- [Docker 28.0.1](https://www.docker.com/)
+- [Nginx](https://nginx.org/en/)
+- [Angular Material 17.3.10](https://material.angular.dev/)
+- [ngx-pagination 6.0.3](https://www.npmjs.com/package/ngx-pagination/)
 
-## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Instalación y ejecución local
 
-## Running unit tests
+### Pasos:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+1. Clonar el repositorio:<br/>
+   ```cmd
+    git clone https://github.com/adriancasanova/RIU-Frontend-Adrian-Casanova
+    ```
 
-## Running end-to-end tests
+2. Navegar a la carpeta del proyecto clonado:<br/>     
+   ```cmd
+    cd riu-frontend 
+    ```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+3. Instalar dependencias:<br/>
+   ```cmd
+   npm install
+   ```
 
-## Further help
+4. Levantar el servidor de desarrollo:<br/>
+   ```cmd
+   ng serve
+   ```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+5. La aplicación estará disponible en: <br/>
+   http://localhost:4200
+
+
+## Ejecución en Docker
+
+### Prerrequisito
+Tener Docker instalado
+
+### Pasos:
+
+1. Tenerdocker inicializado
+
+2. Construir la imagen Docker:
+```cmd
+docker build -t riu-frontend .
+```
+
+3. Ejecutar el contenedor:
+```cmd
+docker run -p 80:80 riu-frontend
+```
+
+4. Acceder a la aplicación en el navegador:<br/>
+http://localhost
+
+
+## Correr test 
+
+ ```cmd
+   ng test
+   ```

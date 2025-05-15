@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { AddHeroComponent } from './add-hero.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -47,6 +46,6 @@ describe('AddHeroComponent', () => {
     expect(component.addHero).toHaveBeenCalled();
     expect(component.addHero).toBeTruthy();
   });
-
+  
 })
 

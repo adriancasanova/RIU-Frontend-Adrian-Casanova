@@ -33,7 +33,6 @@
         (ngModelChange)="inputStudio = $event.toUpperCase()"
         required
       />
-
       @if (inputValidatorStudio?.hasError('required')) {
       <mat-error>El estudio del heroe es obligatorio</mat-error>
       } @if (inputValidatorStudio?.hasError('minlength')) {

@@ -6,8 +6,6 @@ import {
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import {
-  MatDialogModule,
-  MatDialogRef,
   MAT_DIALOG_DATA,
   MatDialogActions,
   MatDialogClose,
@@ -32,7 +30,7 @@ import { FormsModule } from '@angular/forms';
     MatInputModule,
     FormsModule,
   ],
-  providers: [{ provide: MatDialogRef, useValue: {}}, { provide: MAT_DIALOG_DATA, useValue: {} }, ],
+  providers: [ ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './edit-heros.component.html',
   styleUrl: './edit-heros.component.scss',
@@ -43,8 +41,9 @@ export class EditHerosComponent implements OnInit {
   inputName = '';
   name = '';
   studio = '';
-  heroes: Hero[] = [];
+  heroes = this.heroService.getHeroes()
   selectedHero: Hero | null = null;
+
   constructor(
     private heroService: HeroService,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -56,14 +55,10 @@ export class EditHerosComponent implements OnInit {
     this.inputStudio = this.formParentComponent.studio;
   }
   updateHero() {
-    console.log('updateHero', this.formParentComponent.id);
     this.heroService.updateHero(this.formParentComponent.id, {
       name: this.inputName,
       studio: this.inputStudio,
     } as Hero);
-    this.loadHeroes();
   }
-  loadHeroes() {
-    this.heroes = this.heroService.getHeroes();
-  }
+
 }
