@@ -61,4 +61,8 @@ export class EditHerosComponent implements OnInit {
     } as Hero);
   }
 
+onNameChange(value: string) {
+  this.inputName = value.toUpperCase();
+}
+
 }

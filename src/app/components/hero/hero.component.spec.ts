@@ -1,16 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HeroComponent } from './hero.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { HeroService } from '../../services/hero.service';
 
 describe('HeroComponent', () => {
   let component: HeroComponent;
   let fixture: ComponentFixture<HeroComponent>;
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HeroComponent, NoopAnimationsModule]
-    })
-    .compileComponents();
+      imports: [HeroComponent, NoopAnimationsModule],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(HeroComponent);
     component = fixture.componentInstance;
@@ -21,15 +20,18 @@ describe('HeroComponent', () => {
     expect(component).toBeTruthy();
   });
 
-
   it('should have a button', () => {
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('button')?.textContent).toContain('Agregar heroe');
+    expect(compiled.querySelector('button')?.textContent).toContain(
+      'Agregar heroe'
+    );
   });
 
   it('should have a list of heroes', () => {
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.hero__list--ul')?.textContent).toContain('SPIDERMAN');
+    expect(compiled.querySelector('.hero__list--ul')?.textContent).toContain(
+      'SPIDERMAN'
+    );
   });
 
   it('should call deleteHero when delete button is clicked', () => {
@@ -39,9 +41,13 @@ describe('HeroComponent', () => {
     expect(component.deleteHero).toHaveBeenCalled();
   });
 
-  it('should call getHeroes when component is initialized', () => {
-    spyOn(component, 'heroes');
-    expect(component.heroes()).toBeTruthy;
+  it('should call getHeroes from heroService', () => {
+    const heroService = TestBed.inject(HeroService);
+    const spy = spyOn(heroService, 'getHeroes').and.callThrough();
+    fixture = TestBed.createComponent(HeroComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+    expect(spy).toHaveBeenCalled();
   });
 
   it('should call getHeroById when hero is selected', () => {
@@ -49,13 +55,4 @@ describe('HeroComponent', () => {
     component.getHeroById(1);
     expect(component.getHeroById).toHaveBeenCalledWith(1);
   });
-/*
-  it('should call getHeroByName when search input is changed', () => {
-   let spy = spyOn(component, 'getHeroByName');
-   const searchInput = fixture.nativeElement.querySelector('.hero__input--name');
-   searchInput.value = 'BATMAN';
-   searchInput.dispatchEvent(new Event('input'));
-   expect(spy).toHaveBeenCalledWith();
-  }); */
-
 });

@@ -65,8 +65,30 @@ export class AddHeroComponent {
     return this.loginForm.get('inputValidatorStudio');
   }
 
-  constructor(private heroService: HeroService) {}
+  constructor(private heroService: HeroService) {
+    this.loginForm
+      .get('inputValidatorStudio')
+      ?.valueChanges.subscribe((val) => {
+        const upper = val?.toUpperCase() || '';
+        if (val !== upper) {
+          this.loginForm
+            .get('inputValidatorStudio')
+            ?.setValue(upper, { emitEvent: false });
+        }
+      });
+
+    this.loginForm.get('inputValidatorName')?.valueChanges.subscribe((val) => {
+      const upper = val?.toUpperCase() || '';
+      if (val !== upper) {
+        this.loginForm
+          .get('inputValidatorName')
+          ?.setValue(upper, { emitEvent: false });
+      }
+    });
+  }
   addHero(): void {
-    this.heroService.addHero({ name: this.name, studio: this.studio } as Hero);
+    const name = this.loginForm.get('inputValidatorName')?.value;
+    const studio = this.loginForm.get('inputValidatorStudio')?.value;
+    this.heroService.addHero({ name, studio } as Hero);
   }
 }

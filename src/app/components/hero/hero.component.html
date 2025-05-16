@@ -10,18 +10,19 @@
         value="0"
         [(ngModel)]="id"
         (input)="getHeroById(this.id)"
+        name="id"
       />
     </mat-form-field>
     <mat-form-field>
       <mat-label>Filtrar por nombre</mat-label>
+
       <input
         class="hero__input--name"
         matInput
         placeholder="Batman"
-        value="Batman"
         [(ngModel)]="searchName"
-        (ngModelChange)="searchName = $event.toUpperCase()"
-        (input)="getHeroByName()"
+        (ngModelChange)="onNameChange($event)"
+        name="searchName"
       />
     </mat-form-field>
   </div>

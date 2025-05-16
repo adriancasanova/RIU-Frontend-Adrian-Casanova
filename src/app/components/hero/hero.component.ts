@@ -32,7 +32,7 @@ import { EditHerosComponent } from '../edit-heros/edit-heros.component';
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.scss',
 })
-export class HeroComponent  {
+export class HeroComponent {
   inputBuscar = '';
   filterPost = '';
   public page: number = 1;
@@ -51,10 +51,7 @@ export class HeroComponent  {
   searchName: string = '';
   id!: number;
 
-  constructor(private heroService: HeroService) {
-  }
-
-
+  constructor(private heroService: HeroService) {}
 
   idDelete(heroID: number) {
     this.DeleteId = heroID;
@@ -90,5 +87,10 @@ export class HeroComponent  {
       studio: hero.studio,
     };
     this.dialogEdit.open(EditHerosComponent, dialogConfig);
+  }
+
+  onNameChange(value: string) {
+    this.searchName = value.toUpperCase();
+    this.getHeroByName();
   }
 }

@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AddHeroComponent } from './add-hero.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogRef } from '@angular/material/dialog';
 
 describe('AddHeroComponent', () => {
   let component: AddHeroComponent;
@@ -8,7 +9,10 @@ describe('AddHeroComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AddHeroComponent, NoopAnimationsModule]
+      imports: [AddHeroComponent, NoopAnimationsModule],
+      providers: [
+    { provide: MatDialogRef, useValue: { close: () => {} } }
+  ]
     })
     .compileComponents();
 
@@ -46,6 +50,6 @@ describe('AddHeroComponent', () => {
     expect(component.addHero).toHaveBeenCalled();
     expect(component.addHero).toBeTruthy();
   });
-  
+
 })
 
